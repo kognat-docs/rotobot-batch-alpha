@@ -33,7 +33,7 @@ def template():
     <OS>MacOSX</OS>
     <Bits>64</Bits>
     <NodesCollection class_id="1" tracking_level="0" version="1">
-        <NodesCount>18</NodesCount>
+        <NodesCount>19</NodesCount>
         <item class_id="2" tracking_level="0" version="15">
             <Plugin_label>Viewer1</Plugin_label>
             <Plugin_script_name>Viewer1</Plugin_script_name>
@@ -48,7 +48,7 @@ def template():
                 <item_version>0</item_version>
                 <item class_id="4" tracking_level="0" version="0">
                     <first>1</first>
-                    <second>Rotobot_Trimap_1</second>
+                    <second>Premult2</second>
                 </item>
             </Inputs_map>
             <KnobsAge>0</KnobsAge>
@@ -1975,7 +1975,7 @@ def template():
                 <item_version>0</item_version>
                 <item>
                     <first>Source</first>
-                    <second>Rotobot_Trimap_1</second>
+                    <second>OCIOColorSpace2</second>
                 </item>
             </Inputs_map>
             <KnobsAge>0</KnobsAge>
@@ -2132,7 +2132,7 @@ def template():
                 <item>
                     <Enabled>0</Enabled>
                     <HasAnimation>0</HasAnimation>
-                    <Value>%%%START_FRAME%%%</Value>
+                    <Value>0</Value>
                     <Default>0</Default>
                     <HasMaster>0</HasMaster>
                     <Expression></Expression>
@@ -2272,6 +2272,121 @@ def template():
             </UserComponents>
             <CacheID>Crop1</CacheID>
         </item>
+        <item>
+            <Plugin_label>OCIOColorSpace2</Plugin_label>
+            <Plugin_script_name>OCIOColorSpace2</Plugin_script_name>
+            <Plugin_id>fr.inria.openfx.OCIOColorSpace</Plugin_id>
+            <PythonModule></PythonModule>
+            <PythonModuleVersion>0</PythonModuleVersion>
+            <Plugin_major_version>1</Plugin_major_version>
+            <Plugin_minor_version>0</Plugin_minor_version>
+            <KnobsCount>4</KnobsCount>
+            <item>
+                <Name>ocioInputSpace</Name>
+                <Type>String</Type>
+                <Dimension>1</Dimension>
+                <Secret>1</Secret>
+                <MasterIsAlias>0</MasterIsAlias>
+                <item>
+                    <Enabled>0</Enabled>
+                    <HasAnimation>0</HasAnimation>
+                    <Value>sRGB</Value>
+                    <Default>scene_linear</Default>
+                    <HasMaster>0</HasMaster>
+                    <Expression></Expression>
+                    <ExprHasRet>0</ExprHasRet>
+                </item>
+                <StringsAnimation>
+                    <count>0</count>
+                    <item_version>0</item_version>
+                </StringsAnimation>
+                <UserKnob>0</UserKnob>
+            </item>
+            <item>
+                <Name>ocioOutputSpace</Name>
+                <Type>String</Type>
+                <Dimension>1</Dimension>
+                <Secret>1</Secret>
+                <MasterIsAlias>0</MasterIsAlias>
+                <item>
+                    <Enabled>0</Enabled>
+                    <HasAnimation>0</HasAnimation>
+                    <Value>scene_linear</Value>
+                    <Default>scene_linear</Default>
+                    <HasMaster>0</HasMaster>
+                    <Expression></Expression>
+                    <ExprHasRet>0</ExprHasRet>
+                </item>
+                <StringsAnimation>
+                    <count>0</count>
+                    <item_version>0</item_version>
+                </StringsAnimation>
+                <UserKnob>0</UserKnob>
+            </item>
+            <item>
+                <Name>userTextArea</Name>
+                <Type>String</Type>
+                <Dimension>1</Dimension>
+                <Secret>0</Secret>
+                <MasterIsAlias>0</MasterIsAlias>
+                <item>
+                    <Enabled>1</Enabled>
+                    <HasAnimation>0</HasAnimation>
+                    <Value>&lt;font size=&quot;6&quot; color=&quot;#000000&quot; face=&quot;Droid Sans&quot;&gt;&lt;/font&gt;</Value>
+                    <Default></Default>
+                    <HasMaster>0</HasMaster>
+                    <Expression></Expression>
+                    <ExprHasRet>0</ExprHasRet>
+                </item>
+                <StringsAnimation>
+                    <count>0</count>
+                    <item_version>0</item_version>
+                </StringsAnimation>
+                <UserKnob>0</UserKnob>
+            </item>
+            <item>
+                <Name>Source_channels</Name>
+                <Type>Choice</Type>
+                <Dimension>1</Dimension>
+                <Secret>0</Secret>
+                <MasterIsAlias>0</MasterIsAlias>
+                <item>
+                    <Enabled>1</Enabled>
+                    <HasAnimation>0</HasAnimation>
+                    <Value>1</Value>
+                    <Default>1</Default>
+                    <HasMaster>0</HasMaster>
+                    <Expression></Expression>
+                    <ExprHasRet>0</ExprHasRet>
+                </item>
+                <ChoiceLabel>uk.co.thefoundry.OfxImagePlaneColour</ChoiceLabel>
+                <UserKnob>0</UserKnob>
+            </item>
+            <Inputs_map>
+                <count>1</count>
+                <item_version>0</item_version>
+                <item>
+                    <first>Source</first>
+                    <second>Rotobot_Trimap_1</second>
+                </item>
+            </Inputs_map>
+            <KnobsAge>1</KnobsAge>
+            <MasterNode></MasterNode>
+            <HasRotoContext>0</HasRotoContext>
+            <HasTrackerContext>0</HasTrackerContext>
+            <MultiInstanceParent></MultiInstanceParent>
+            <UserPagesCount>0</UserPagesCount>
+            <PagesCount>3</PagesCount>
+            <name>Controls</name>
+            <name>Node</name>
+            <name>Info</name>
+            <Children>0</Children>
+            <UserComponents>
+                <count>0</count>
+                <item_version>2</item_version>
+            </UserComponents>
+            <CacheID>OCIOColorSpace2</CacheID>
+        </item>
     </NodesCollection>
     <ProjectKnobsCount>3</ProjectKnobsCount>
     <item>
@@ -2326,7 +2441,7 @@ def template():
         <item>
             <Enabled>0</Enabled>
             <HasAnimation>0</HasAnimation>
-            <Value>Fri May 1 12:46:29 2020</Value>
+            <Value>Sat May 2 16:40:32 2020</Value>
             <Default></Default>
             <HasMaster>0</HasMaster>
             <Expression></Expression>
@@ -2347,7 +2462,7 @@ def template():
 </Project>
 <ProjectGui class_id="14" tracking_level="0" version="11">
     <NodesGui class_id="15" tracking_level="0" version="0">
-        <count>18</count>
+        <count>19</count>
         <item_version>6</item_version>
         <item class_id="16" tracking_level="0" version="6">
             <Name>Viewer1</Name>
@@ -2561,8 +2676,8 @@ def template():
         </item>
         <item>
             <Name>Premult2</Name>
-            <X_position>5.05952712755569223e+02</X_position>
-            <Y_position>9.82801605490274937e+02</Y_position>
+            <X_position>5.00036602632539370e+02</X_position>
+            <Y_position>1.11295602819693363e+03</Y_position>
             <Preview_enabled>0</Preview_enabled>
             <r>3.00007641e-01</r>
             <g>3.70000750e-01</g>
@@ -2575,8 +2690,8 @@ def template():
         </item>
         <item>
             <Name>Write1</Name>
-            <X_position>5.05952712755569223e+02</X_position>
-            <Y_position>1.02664655721310214e+03</Y_position>
+            <X_position>5.00036602632539370e+02</X_position>
+            <Y_position>1.15680097991976049e+03</Y_position>
             <Preview_enabled>0</Preview_enabled>
             <r>7.49996185e-01</r>
             <g>7.49996185e-01</g>
@@ -2595,6 +2710,20 @@ def template():
             <r>6.99992359e-01</r>
             <g>3.00007641e-01</g>
             <b>1.00007631e-01</b>
+            <Selected>0</Selected>
+            <Width>1.04000000000000000e+02</Width>
+            <Height>3.40000000000000000e+01</Height>
+            <HasOverlayColor>0</HasOverlayColor>
+            <Children>0</Children>
+        </item>
+        <item>
+            <Name>OCIOColorSpace2</Name>
+            <X_position>5.05952712755569223e+02</X_position>
+            <Y_position>9.64719795180466008e+02</Y_position>
+            <Preview_enabled>0</Preview_enabled>
+            <r>4.80003059e-01</r>
+            <g>6.59998477e-01</g>
+            <b>1.00000000e+00</b>
             <Selected>0</Selected>
             <Width>1.04000000000000000e+02</Width>
             <Height>3.40000000000000000e+01</Height>
@@ -2663,9 +2792,9 @@ def template():
         <item class_id="23" tracking_level="0" version="0">
             <first>Viewer1</first>
             <second class_id="24" tracking_level="0" version="14">
-                <zoomLeft>-1.14340000000000009e+03</zoomLeft>
-                <zoomBottom>-2.16000000000000014e+01</zoomBottom>
-                <zoomFactor>1.92307692307692291e-01</zoomFactor>
+                <zoomLeft>4.94548271341267082e+02</zoomLeft>
+                <zoomBottom>2.10786253599905137e+02</zoomBottom>
+                <zoomFactor>6.88783685598655215e-01</zoomFactor>
                 <UserRoIEnabled>0</UserRoIEnabled>
                 <UserRoI class_id="25" tracking_level="0" version="0">
                     <Left>4.80000000000000000e+02</Left>
@@ -2683,7 +2812,7 @@ def template():
                 <Channels>RGB</Channels>
                 <RenderScaleActivated>0</RenderScaleActivated>
                 <MipMapLevel>0</MipMapLevel>
-                <ZoomOrPanSinceFit>0</ZoomOrPanSinceFit>
+                <ZoomOrPanSinceFit>1</ZoomOrPanSinceFit>
                 <CompositingOP>0</CompositingOP>
                 <LeftBound>%%%START_FRAME%%%</LeftBound>
                 <RightBound>%%%END_FRAME%%%</RightBound>
@@ -2711,6 +2840,7 @@ def template():
     <OpenedPanels>
         <count>10</count>
         <item_version>0</item_version>
+        <item>OCIOColorSpace2</item>
         <item>Write1</item>
         <item>Read1</item>
         <item>Crop1</item>
@@ -2720,7 +2850,6 @@ def template():
         <item>Natron_Project_Settings_Panel</item>
         <item>Shuffle4</item>
         <item>ColorLookup3</item>
-        <item>Erode1_2</item>
     </OpenedPanels>
     <ScriptEditorInput></ScriptEditorInput>
     <NumPyPanels>0</NumPyPanels>
