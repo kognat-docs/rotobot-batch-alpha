@@ -7,6 +7,50 @@ import glob
 import sys
 import os
 
+import psutil
+import random
+import threading
+
+class DisplayCPU(threading.Thread):
+    def run(self, processName="NatronRenderer.exe", debug=False):
+        self.running = True
+        while self.running:
+           for currentProcess in findProcessIdByName(processName):
+                cpu = currentProcess.cpu_percent(interval=10)
+                if  cpu < 0.1:
+                   if debug:
+                      print("Process idle killing!")
+                   currentProcess.kill()
+                   self.stop()
+                else:
+                   if debug:
+                      print("CPU percentage: %03.02f" % cpu) 
+    def stop(self):
+        self.running = False
+
+def findProcessIdByName(processName):
+    '''
+    Get a list of all the PIDs of a all the running process whose name contains
+    the given string processName
+    '''
+ 
+    listOfProcessObjects = []
+    debug = False
+    #Iterate over the all the running process
+    for proc in psutil.process_iter():
+       try:
+           pinfo = proc.as_dict(attrs=['pid', 'name', 'create_time'])
+           # Check if process name contains the given name string.
+           if processName.lower() in pinfo['name'].lower() :
+               if debug:
+                   print("%s is found to be running" % processName.lower())
+               listOfProcessObjects.append(proc)
+       except (psutil.NoSuchProcess, psutil.AccessDenied , psutil.ZombieProcess) :
+           pass
+ 
+    return listOfProcessObjects;
+
+
 MOV_EXT1 = "MOV"
 MOV_EXT2 = MOV_EXT1.lower()
 MP4_EXT1 = "MP4"
@@ -2964,10 +3008,21 @@ def do_it(folder):
         print("Creating masks using Natron for {}".format(movie))
         my_env = os.environ.copy()
         my_env["kognat_LICENSE"] = LICENSE
-        rotobot_process = subprocess.Popen(command, stdout=subprocess.PIPE, env=my_env)
-        output_rotobot = rotobot_process.communicate()[0]
-        if output_rotobot:
-            print(output_rotobot)
+        if "NatronRenderer.exe" in NATRON_RENDERER:
+            #NatronRenderer.exe doesnt exit cleanly on windows.
+            try:
+                display_cpu = DisplayCPU()
+                display_cpu.start()
+                with psutil.Popen(command, stdout=subprocess.PIPE, env=my_env, bufsize=1, universal_newlines=True) as proc:
+                    for line in iter(proc.stdout.readline,''):
+                        print(line.rstrip())
+            finally:
+                display_cpu.stop()
+        else:
+            rotobot_process = subprocess.Popen(command, stdout=subprocess.PIPE, env=my_env, bufsize=1, universal_newlines=True)
+            output_rotobot = rotobot_process.communicate()[0]
+            for line in iter(output_rotobot.readline,''):
+                print(line.rstrip())
         print("Finished Creating masks using Natron for {}".format(movie))
     return True
 
