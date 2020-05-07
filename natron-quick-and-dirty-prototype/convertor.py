@@ -19,7 +19,7 @@ import subprocess
 NATRON_RENDERER = '/Applications/Natron.app/Contents/MacOS/NatronRenderer'
 
 if (os.name == 'nt' and platform.system() == 'Windows' and platform.release() == '10'):
-    NATRON_RENDERER = "C:\\Program Files\\INIRIA\\Natron-2.3.14\\bin\\NatronRenderer.exe"
+    NATRON_RENDERER = "C:\\Program Files\\INRIA\\Natron-2.3.14\\bin\\NatronRenderer.exe"
 elif (os.name == 'posix' and platform.system() == 'Linux'):
     NATRON_RENDERER = '/opt/Natron2/NatronRenderer'
     if not os.path.isfile(NATRON_RENDERER):
