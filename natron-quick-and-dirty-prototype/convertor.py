@@ -2,10 +2,83 @@
 """
 Simple hack script to get movies converted to PNG MASKS
 """
+MOV_EXT1 = "MOV"
+MOV_EXT2 = MOV_EXT1.lower()
+MP4_EXT1 = "MP4"
+MP4_EXT2 = MP4_EXT1.lower()
+AVI_EXT1 = "AVI"
+AVI_EXT2 = AVI_EXT1.lower()
+TEMP_NATRON = "temp.ntp"
+
+import platform
+import os
+import sys
 import subprocess
+
+#Mac path
+NATRON_RENDERER = '/Applications/Natron.app/Contents/MacOS/NatronRenderer'
+
+if (os.name == 'nt' and platform.system() == 'Windows' and platform.release() == '10'):
+    NATRON_RENDERER = "C:\\Program Files\\INIRIA\\Natron-2.3.14\\bin\\NatronRenderer.exe"
+elif (os.name == 'posix' and platform.system() == 'Linux'):
+    NATRON_RENDERER = '/opt/Natron2/NatronRenderer'
+    if not os.path.isfile(NATRON_RENDERER):
+        NATRON_RENDERER = "%s/Natron2/NatronRenderer" % os.environ.get("HOME","/home/ec2-user")
+
+NATRON_RENDERER = os.environ.get("NATRON_RENDERER",NATRON_RENDERER)
+
+if not os.path.isfile(NATRON_RENDERER):
+    print("Please install Natron 2.3.14!")
+    sys.exit(-99)
+
+FFMPEG_BINARY = "ffmpeg"
+
+FFMPEG_BINARY = os.environ.get("FFMPEG_BINARY",FFMPEG_BINARY)
+
+
+command = [FFMPEG_BINARY, "-version"]
+
+try:
+    process = subprocess.Popen(command, stdout=subprocess.PIPE)
+    standard_output = process.communicate()[0]
+    print("FFMPEG INFO: %s" % str(standard_output))
+    print("FFMPEG OK!")
+
+
+except Exception as inst:
+    print(type(inst))    # the exception instance
+    print(inst.args)     # arguments stored in .args
+    print(inst)          # __str__ allows args to be printed directly,
+    print("Check your ffmpeg installation")
+    sys.exit(-99)
+finally:
+    print("If you see FFMPEG INFO: printouts FFMPEG is installed and in your path")
+
+command=[NATRON_RENDERER, "--version"]
+
+try:
+    process = subprocess.Popen(command, stdout=subprocess.PIPE)
+    standard_output = process.communicate()[0]
+    print("NATRON INFO: %s" % str(standard_output))
+    print("NATRON OK!")
+
+
+except Exception as inst:
+    print(type(inst))    # the exception instance
+    print(inst.args)     # arguments stored in .args
+    print(inst)          # __str__ allows args to be printed directly,
+    print("Check your Natron installation")
+    sys.exit(-99)
+finally:
+    print("If you see NATRON INFO: printouts NATRON is installed and in your path")
+
+LICENSE = "2102@kognat-build.kognat.localdomain"
+
+print("Make sure ROTOBOT_DIR is set and rotobot.ofx.bundle is in the OFX_PLUGIN_PATH")
+print("Please see: https://rotobot-docs.readthedocs.io/en/latest/\n\n\n")
+
 import glob
 import sys
-import os
 
 import psutil
 import random
@@ -51,16 +124,6 @@ def findProcessIdByName(processName):
     return listOfProcessObjects;
 
 
-MOV_EXT1 = "MOV"
-MOV_EXT2 = MOV_EXT1.lower()
-MP4_EXT1 = "MP4"
-MP4_EXT2 = MP4_EXT1.lower()
-AVI_EXT1 = "AVI"
-AVI_EXT2 = AVI_EXT1.lower()
-FFMPEG_BINARY = "ffmpeg"
-TEMP_NATRON = "temp.ntp"
-NATRON_RENDERER = '/Applications/Natron.app/Contents/MacOS/NatronRenderer'
-LICENSE = "2102@kognat-build.kognat.localdomain"
 
 
 def template():
