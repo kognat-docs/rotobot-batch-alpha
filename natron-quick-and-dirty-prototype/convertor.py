@@ -3082,10 +3082,9 @@ def do_it(folder):
             finally:
                 display_cpu.stop()
         else:
-            rotobot_process = subprocess.Popen(command, stdout=subprocess.PIPE, env=my_env, bufsize=1, universal_newlines=True)
-            output_rotobot = rotobot_process.communicate()[0]
-            for line in iter(output_rotobot.readline,''):
-                print(line.rstrip())
+            with psutil.Popen(command, stdout=subprocess.PIPE, env=my_env, bufsize=1, universal_newlines=True) as proc:
+                for line in iter(proc.stdout.readline,''):
+                    print(line.rstrip())
         print("Finished Creating masks using Natron for {}".format(movie))
     return True
 
